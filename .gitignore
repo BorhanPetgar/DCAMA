@@ -12,6 +12,7 @@ datasets/
 *.png
 vis_5
 my_data
+crack_phone_data
 results
 # checkpoints
 checkpoints/
