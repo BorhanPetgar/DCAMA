@@ -3,3 +3,10 @@ start.sh
 config.json
 __pycache__
 logs
+# all jpgs in every folder
+**/*.jpg
+*.jpg
+data/
+datasets/
+**/*.png
+*.png
