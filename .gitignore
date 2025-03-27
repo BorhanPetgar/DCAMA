@@ -10,3 +10,10 @@ data/
 datasets/
 **/*.png
 *.png
+vis_5
+my_data
+results
+# checkpoints
+checkpoints/
+**/*.pth
+*.pth
