@@ -1,12 +1,12 @@
-python ./test.py --datapath "../datasets" \
+python ./test.py --datapath "/home/ubuntu/borhan/projects/anomaly/repos/DCAMA/datasets" \
                  --benchmark coco \
                  --fold 0 \
                  --bsz 1 \
                  --nworker 8 \
                  --backbone swin \
-                 --feature_extractor_path "../backbones/swin_base_patch4_window12_384.pth" \
+                 --feature_extractor_path "/home/ubuntu/borhan/projects/anomaly/repos/DCAMA/backbones/swin_base_patch4_window12_384_22kto1k.pth" \
                  --logpath "./logs" \
-                 --load "./best_model.pt" \
+                 --load "/home/ubuntu/borhan/projects/anomaly/repos/DCAMA/checkpoints/swin_fold0.pt" \
                  --nshot 5 \
                  --vispath "./vis_5" \
                  --visualize
