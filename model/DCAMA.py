@@ -106,9 +106,16 @@ class DCAMA(nn.Module):
         query_img = batch['query_img']
         support_imgs = batch['support_imgs']
         support_masks = batch['support_masks']
+        print(20 * '=')
+        print(f'query image size: {query_img.size()}')
+        print(f'support image size: {support_imgs.size()}')
+        print(f'support mask size: {support_masks.size()}')
+        
 
         if nshot == 1:
             logit_mask = self(query_img, support_imgs[:, 0], support_masks[:, 0])
+            print(20 * '=')
+            print(f'logit mask size: {logit_mask.size()}')
         else:
             with torch.no_grad():
                 query_feats = self.extract_feats(query_img)
