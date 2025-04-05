@@ -1,0 +1,18 @@
+# DCAMA Training Configuration
+
+# Dataset
+datapath: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/ALL/crack_dataset"
+
+# Model Configuration
+backbone: "swin"
+feature_extractor_path: "backbones/swin_base_patch4_window12_384_22kto1k.pth"
+
+# Training Parameters
+nepoch: 50
+lr: 0.001
+bsz: 4
+nworker: 1
+
+# Optional Parameters
+img_size: 384
+use_original_imgsize: false
