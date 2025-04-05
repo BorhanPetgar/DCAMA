@@ -4,13 +4,33 @@ import torch.optim as optim
 import torch
 import time
 from datetime import datetime
+import sys
+import yaml
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
 from model.DCAMA import DCAMA
 from common.evaluation import Evaluator
-from common.config import parse_opts
 from common import utils
 # Import your custom dataset
 from data.custom_dataset import get_custom_dataloader
+
+
+def load_config(config_path):
+    """Load configuration from YAML file."""
+    with open(config_path, 'r') as f:
+        config = yaml.safe_load(f)
+    
+    # Convert to namespace for compatibility with the rest of the code
+    class Config:
+        pass
+    
+    args = Config()
+    for key, value in config.items():
+        setattr(args, key, value)
+    
+    return args
+
 
 def train(epoch, model, dataloader, optimizer, training):
     r""" Train """
@@ -106,8 +126,10 @@ def train(epoch, model, dataloader, optimizer, training):
 
 
 if __name__ == '__main__':
-    # Arguments parsing
-    args = parse_opts()
+    # Load configuration from fixed YAML path
+    config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../params/train.yaml'))
+    print(f"Loading configuration from: {config_path}")
+    args = load_config(config_path)
 
     # Create output directory for saving models
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -141,8 +163,8 @@ if __name__ == '__main__':
         batch_size=args.bsz,
         num_workers=args.nworker,
         n_shots=1,  # Number of support examples
-        img_size=384,
-        use_original_imgsize=False
+        img_size=args.img_size,
+        use_original_imgsize=args.use_original_imgsize
     )
     
     # Optimizer initialization
