@@ -21,3 +21,5 @@ checkpoints/
 **/*.pt
 *.pt
 temp*.py
+ALL
+*.part
