@@ -1,0 +1,26 @@
+python inference.py \
+    --backbone swin \
+    --feature_extractor_path "backbones/swin_base_patch4_window12_384_22kto1k.pth" \
+    --load "checkpoints/swin_fold0.pt" \
+    --support_img "my_data/s1.jpg" \
+    --support_mask "my_data/s1_mask.png" \
+    --query_img "my_data/q1.jpg" \
+    --output_mask "q1_output_mask_12_their_train.png" \
+    --nshot 1
+
+
+python custom_train2.py \
+            --datapath /home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/crack_dataset \
+            --backbone swin \
+            --feature_extractor_path backbones/swin_base_patch4_window12_384_22kto1k.pth \
+            --nepoch 50 \
+            --lr 0.001 \
+            --bsz 4 \
+            --nworker 1
+
+
+### OUR MODEL
+    --load "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/model_checkpoints/20250327_120422/best_miou_model.pt" \
+
+### THEIR MODEL
+    --load "checkpoints/swin_fold0.pt" \
