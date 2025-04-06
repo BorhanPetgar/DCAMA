@@ -6,12 +6,10 @@ feature_extractor_path: "backbones/swin_base_patch4_window12_384_22kto1k.pth"
 load: "checkpoints/swin_fold0.pt"
 
 # Input Data
-support_img: "my_data/s1.jpg"
-support_mask: "my_data/s1_mask.png"
-query_img: "my_data/q1.jpg"
-output_mask: "q1_output_mask_12_their_train.png"
+support_folder: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/ALL/crack_dataset_custom/SUPPORT"  # Folder containing support images and their masks
+query_img: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/my_data/11240-1.jpg"
+output_mask: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/my_data/11240-1_output_mask_alot_shot.png"
 
 # Inference Settings
 use_original_imgsize: false
-nshot: 1
 img_size: 384

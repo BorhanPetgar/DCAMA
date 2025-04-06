@@ -50,6 +50,48 @@ def load_image(path, is_mask=False, img_size=384):
         return transform(img)
 
 
+def load_support_images(folder_path, img_size=384):
+    """Load all support images and their masks from a folder.
+    
+    Expected format:
+    - Images: name.jpg/png
+    - Masks: name_mask.png
+    """
+    support_imgs = []
+    support_masks = []
+    
+    # Get all image files (excluding mask files)
+    img_extensions = ['.jpg', '.jpeg', '.png']
+    img_files = [f for f in os.listdir(folder_path) 
+                if os.path.isfile(os.path.join(folder_path, f)) 
+                and any(f.lower().endswith(ext) for ext in img_extensions)
+                and not f.lower().endswith('_mask.png')]
+    
+    for img_file in img_files:
+        img_path = os.path.join(folder_path, img_file)
+        
+        # Determine mask path (assuming naming convention: image.jpg -> image_mask.png)
+        mask_name = os.path.splitext(img_file)[0] + '_mask.png'
+        mask_path = os.path.join(folder_path, mask_name)
+        
+        if os.path.exists(mask_path):
+            img = load_image(img_path, False, img_size)
+            mask = load_image(mask_path, True, img_size)
+            
+            support_imgs.append(img)
+            support_masks.append(mask)
+            print(f"Loaded support pair: {img_file} and {mask_name}")
+    
+    if not support_imgs:
+        raise ValueError(f"No valid support image-mask pairs found in {folder_path}")
+    
+    # Stack all images and masks into tensors
+    support_imgs = torch.stack(support_imgs)  # [nshot, 3, H, W]
+    support_masks = torch.stack(support_masks)  # [nshot, H, W]
+    
+    return support_imgs, support_masks
+
+
 def main():
     # Load configuration from fixed YAML path
     config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../params/inference.yaml'))
@@ -73,21 +115,17 @@ def main():
         state_dict[k2] = state_dict.pop(k1)
     model.load_state_dict(state_dict)
     
-    # Load images
-    support_img = load_image(args.support_img, False, args.img_size).unsqueeze(0)  # [1, 3, H, W]
-    support_mask = load_image(args.support_mask, True, args.img_size).unsqueeze(0)  # [1, 1, H, W]
+    # Load support images from folder
+    support_imgs, support_masks = load_support_images(args.support_folder, args.img_size)
+    
+    # Determine nshot based on the number of support images
+    nshot = support_imgs.shape[0]
+    print(f"Found {nshot} support images in {args.support_folder}")
+    
+    # Load query image
     query_img = load_image(args.query_img, False, args.img_size).unsqueeze(0)  # [1, 3, H, W]
     
-    # For n-shot > 1, duplicate the support image and mask
-    if args.nshot > 1:
-        # Create a list of identical support images and masks
-        support_imgs = support_img.repeat(args.nshot, 1, 1, 1)
-        support_masks = support_mask.repeat(args.nshot, 1, 1)
-    else:
-        support_imgs = support_img
-        support_masks = support_mask
-    
-    # Prepare batch - ensure correct dimensions
+    # Prepare batch
     batch = {
         'support_imgs': support_imgs.unsqueeze(0),  # [1, nshot, 3, H, W]
         'support_masks': support_masks.unsqueeze(0),  # [1, nshot, H, W]
@@ -106,7 +144,7 @@ def main():
     
     # Perform inference
     with torch.no_grad():
-        pred_mask = model.module.predict_mask_nshot(batch, nshot=args.nshot)
+        pred_mask = model.module.predict_mask_nshot(batch, nshot=nshot)
         print(20 * "=")
         print(f'Prediction shape: {pred_mask.shape}')
         
