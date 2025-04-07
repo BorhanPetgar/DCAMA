@@ -125,14 +125,20 @@ def main():
     # Load query image
     query_img = load_image(args.query_img, False, args.img_size).unsqueeze(0)  # [1, 3, H, W]
     
+    # Get original query image dimensions
+    original_query_img = Image.open(args.query_img)
+    original_size = torch.tensor([original_query_img.width, original_query_img.height])  # [H, W]
+    
     # Prepare batch
     batch = {
         'support_imgs': support_imgs.unsqueeze(0),  # [1, nshot, 3, H, W]
         'support_masks': support_masks.unsqueeze(0),  # [1, nshot, H, W]
         'query_img': query_img,  # [1, 3, H, W]
         'query_mask': torch.zeros((1, 1, args.img_size, args.img_size)),  # Placeholder
-        'class_id': torch.tensor([0])  # Placeholder
+        'class_id': torch.tensor([0]),  # Placeholder
+        'org_query_imsize': original_size  # Add original size as [1, 2] tensor
     }
+    
     
     # Print shapes for debugging
     print(f"Support images shape: {batch['support_imgs'].shape}")
