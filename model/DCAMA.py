@@ -124,7 +124,8 @@ class DCAMA(nn.Module):
                     support_feats = self.extract_feats(support_imgs[:, k])
                     n_support_feats.append(support_feats)
             logit_mask = self.model(query_feats, n_support_feats, support_masks.clone(), nshot)
-
+        print(20 * '=')
+        print(f'logit mask size: {logit_mask.size()}')
         if self.use_original_imgsize:
             org_qry_imsize = tuple([batch['org_query_imsize'][1].item(), batch['org_query_imsize'][0].item()])
             logit_mask = F.interpolate(logit_mask, org_qry_imsize, mode='bilinear', align_corners=True)
