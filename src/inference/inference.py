@@ -61,7 +61,7 @@ def load_support_images(folder_path, img_size=384):
     support_masks = []
     
     # Get all image files (excluding mask files)
-    img_extensions = ['.jpg', '.jpeg', '.png']
+    img_extensions = ['.jpg', '.jpeg', '.png', '.bmp']
     img_files = [f for f in os.listdir(folder_path) 
                 if os.path.isfile(os.path.join(folder_path, f)) 
                 and any(f.lower().endswith(ext) for ext in img_extensions)
