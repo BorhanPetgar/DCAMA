@@ -6,7 +6,6 @@ logs
 # all jpgs in every folder
 **/*.jpg
 *.jpg
-data/
 datasets/
 **/*.png
 *.png
