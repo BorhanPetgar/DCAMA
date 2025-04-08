@@ -8,7 +8,7 @@ This is a customized fork of the official implementation of the ECCV'2022 paper 
 - PyTorch 2.6.0
 - CUDA 12.4
 
-Tested Device: 3090 + 11.5 CUDA
+Tested Device: NVIDIA GeForce RTX 3090 + 11.5 CUDA
 
 You can install the required packages using the provided `requirements.txt`:
 
