@@ -8,6 +8,8 @@ This is a customized fork of the official implementation of the ECCV'2022 paper 
 - PyTorch 2.6.0
 - CUDA 12.4
 
+Tested Device: 3090 + 11.5 CUDA
+
 You can install the required packages using the provided `requirements.txt`:
 
 ```bash
@@ -94,7 +96,7 @@ During training, model checkpoints will be saved to the model_checkpoints direct
 - `config.yaml`: Configuration used for this training run
 
 When performing inference, specify the path to the desired checkpoint in the `load` parameter of your configuration file.
-
+Asphalt crack checkpoint: (GDrive)[https://drive.google.com/file/d/19Ei8qR8kaF_3Rjp-q_YLAayQ9QNvGkVg/view?usp=drive_link]
 ## Training
 
 The model supports training on custom datasets. Use the following command to train:
