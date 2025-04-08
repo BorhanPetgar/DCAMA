@@ -7,10 +7,6 @@ This is a customized fork of the official implementation of the ECCV'2022 paper 
 - Python 3.10.16
 - PyTorch 2.6.0
 - CUDA 12.4
-- timm
-- PyYAML
-- Pillow
-- NumPy
 
 You can install the required packages using the provided `requirements.txt`:
 
@@ -18,16 +14,6 @@ You can install the required packages using the provided `requirements.txt`:
 pip install -r requirements.txt
 ```
 
-Alternatively, create a conda environment:
-
-```bash
-conda create -n DCAMA python=3.7
-conda activate DCAMA
-
-conda install pytorch=1.5.1 torchvision cudatoolkit=10.1 -c pytorch
-conda install -c conda-forge tensorflow
-pip install tensorboardX timm pillow pyyaml numpy
-```
 
 ## Project Structure
 
@@ -47,7 +33,7 @@ DCAMA/                          # Project root
 │   ├── inference/              # Inference code
 │   │   └── inference.py        # Run inference on images
 │   └── train/                  # Training code
-│       └── custom_train2.py    # Train on custom datasets
+│       └── train.py    # Train on custom datasets
 ├── params/                     # Configuration files
 │   ├── inference.yaml          # Inference configuration
 │   └── train.yaml              # Training configuration
@@ -71,9 +57,8 @@ dataset_folder/
 
 For support and query examples in inference, image-mask pairs should follow this naming convention:
 - Images: name.jpg/png/bmp
-- Masks: name_mask.png
+- Masks: name.png
 
-You can use the script in add_mask_suffix.py to add the proper suffix to your mask files.
 
 ## Prepare Backbones
 
@@ -103,14 +88,7 @@ When performing inference, specify the path to the desired checkpoint in the `lo
 The model supports training on custom datasets. Use the following command to train:
 
 ```bash
-python src/train/custom_train2.py \
-       --datapath /path/to/your/dataset \
-       --backbone swin \
-       --feature_extractor_path backbones/swin_base_patch4_window12_384_22kto1k.pth \
-       --nepoch 50 \
-       --lr 0.001 \
-       --bsz 4 \
-       --nworker 1
+python src/train/train.py
 ```
 
 Configuration options can be modified in train.yaml.
@@ -157,26 +135,6 @@ img_size: 384
 
 ### train.yaml
 Contains parameters for training (learning rate, batch size, epochs, etc.)
-
-## requirements.txt
-
-The repository includes a `requirements.txt` file with the following dependencies:
-
-```
-torch==2.6.0
-torchvision==0.21.0
-tqdm==4.67.1
-PyYAML==5.4.1
-Pillow==9.0.1
-numpy==1.21.5
-opencv-python==4.11.0.86
-```
-
-Install these dependencies using:
-
-```bash
-pip install -r requirements.txt
-```
 
 ## Data Preparation Utilities
 
