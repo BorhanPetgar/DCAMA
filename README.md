@@ -43,9 +43,12 @@ DCAMA/                          # Project root
 └── README.md                   # This file
 ```
 
-## Prepare Datasets
+## Prepare Datasets for Train
 
 The model expects datasets in a specific format with the following directory structure:
+Image-mask pairs should follow this naming convention:
+- Images: name.jpg/png/bmp
+- Masks: name.png
 
 ```
 dataset_folder/
@@ -55,10 +58,19 @@ dataset_folder/
 └── test_masks/       # Binary masks for test images
 ```
 
-For support and query examples in inference, image-mask pairs should follow this naming convention:
-- Images: name.jpg/png/bmp
-- Masks: name.png
+## Prepare Datasets for Inference
 
+For support and query examples in **inference**, image-mask pairs should follow this naming convention:
+- Images: name.jpg/png/bmp
+- Masks: name_mask.png
+
+```
+dataset_folder/
+├── support_images/       # support images folder
+│   ├── name.jpg          
+│   └── name_mask.png   
+├── query_image.jpg/      # Test images
+```
 
 ## Prepare Backbones
 
