@@ -1,7 +1,8 @@
 torch==2.6.0
 torchvision==0.21.0
 tqdm==4.67.1
-PyYAML==5.4.1
+PyYAML==6.0.1  # Updated from 5.4.1
 Pillow==9.0.1
 numpy==1.21.5
 opencv-python==4.11.0.86
+beautifulsoup4
