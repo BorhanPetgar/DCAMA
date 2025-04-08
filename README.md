@@ -4,11 +4,10 @@ This is a customized fork of the official implementation of the ECCV'2022 paper 
 
 ## Requirements
 
-- Python 3.7+
-- PyTorch 1.5.1+
-- CUDA 10.1+
+- Python 3.10.16
+- PyTorch 2.6.0
+- CUDA 12.4
 - timm
-- tensorboard 1.14
 - PyYAML
 - Pillow
 - NumPy
@@ -120,7 +119,7 @@ Configuration options can be modified in train.yaml.
 
 For inference, you need to prepare:
 1. Support images and masks (examples with annotations)
-2. Query images (new images to segment)
+2. Query image (new image to segment)
 
 Run inference with:
 
@@ -164,15 +163,13 @@ Contains parameters for training (learning rate, batch size, epochs, etc.)
 The repository includes a `requirements.txt` file with the following dependencies:
 
 ```
-torch==1.5.1
-torchvision==0.6.1
-timm==0.5.4
-tensorboardX==2.5.1
-PyYAML==6.0
-Pillow==9.3.0
-numpy==1.21.6
-scikit-image==0.19.3
-opencv-python==4.6.0.66
+torch==2.6.0
+torchvision==0.21.0
+tqdm==4.67.1
+PyYAML==5.4.1
+Pillow==9.0.1
+numpy==1.21.5
+opencv-python==4.11.0.86
 ```
 
 Install these dependencies using:
