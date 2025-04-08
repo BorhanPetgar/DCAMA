@@ -3,13 +3,14 @@
 # Model Configuration
 backbone: "swin"
 feature_extractor_path: "backbones/swin_base_patch4_window12_384_22kto1k.pth"
-load: "checkpoints/swin_fold0.pt"
+# load: "checkpoints/swin_fold0.pt"
+load: '/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/model_checkpoints/20250327_120422/best_miou_model.pt'
 
 # Input Data
-support_folder: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/ALL/crack_dataset_custom/SUPPORT"  # Folder containing support images and their masks
-query_img: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/my_data/11240-1.jpg"
-output_mask: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/my_data/11240-1_output_mask_alot_shot.png"
+support_folder: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/ALL/with_label_phones/support_phones"  # Folder containing support images and their masks
+query_img: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/ALL/with_label_phones/4.bmp"
+output_mask: "/home/borhan/Documents/code_workspace/vm6_backup/projects/anomaly/repos/DCAMA/ALL/with_label_phones/4_output_orig_2048.png"
 
 # Inference Settings
-use_original_imgsize: false
+use_original_imgsize: True
 img_size: 384
