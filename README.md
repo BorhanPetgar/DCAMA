@@ -163,5 +163,3 @@ The data_preparation folder contains utilities for preparing datasets:
 
 For experiments on crack detection, the DeepCrack dataset can be used:
 https://github.com/yhlleo/DeepCrack
-
-Similar code found with 1 license type
